@@ -1,2 +1,2 @@
 [Scenario B] GPG signed FROM THE START with timestamp manipulation
-Commit 2: future-dated GPG-signed commit
+Commit 3: another manipulated date
