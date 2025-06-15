@@ -1,0 +1,2 @@
+[Scenario B] GPG signed FROM THE START with timestamp manipulation
+Commit 1: this commit was signed at creation but with a backdated timestamp
