@@ -12,6 +12,24 @@ GitHub 잔디밭(contribution graph)은 **Author Date**를 기준으로 그려�
 
 ![Example Pattern](https://img.shields.io/badge/Pattern-Customizable-green)
 
+## 빠른 사용법
+
+```bash
+# 1. 패턴 디자인 (대화형 에디터)
+cd interactive-cli
+python3 github_canvas.py
+# → 방향키로 이동, Space로 칠하기, S로 저장, Q로 종료
+
+# 2. Git 커밋 생성
+python3 git_generator.py generate pattern.json 2024
+
+# 3. GitHub에 푸시
+cd ..
+git push -f origin main
+```
+
+> **중요**: `github_canvas.py`는 패턴 디자인만, `git_generator.py`는 실제 커밋 생성을 담당합니다.
+
 ## 작동 원리
 
 GitHub 잔디밭은 다음 메커니즘으로 생성됩니다:
@@ -36,6 +54,7 @@ git commit -m "과거 날짜 커밋"
 ## 기능
 
 ### 1. 기본 스크립트
+
 `create_flower_commits.py`로 간단한 패턴 생성
 
 ```bash
@@ -43,6 +62,7 @@ python3 create_flower_commits.py
 ```
 
 ### 2. 대화형 캔버스 에디터
+
 터미널 기반 대화형 에디터로 커스텀 패턴 그리기
 
 ```bash
@@ -51,6 +71,7 @@ python3 github_canvas.py
 ```
 
 **기능**:
+
 - 실시간 패턴 미리보기
 - 5단계 강도 조절 (일일 커밋 0-4개)
 - 2가지 표시 스타일 (음영/블록)
@@ -58,6 +79,7 @@ python3 github_canvas.py
 - Git 커밋 자동 생성
 
 **키 조작법**:
+
 - 방향키: 커서 이동
 - Space: 강도 토글 (0→1→2→3→4→0)
 - 0-4: 직접 강도 설정
@@ -79,32 +101,6 @@ b2c4066 - devJZen, 1년 전 : Flower commit 49
 9af3713 - devJZen, 1년 전 : Flower commit 48
 ```
 
-## 빠른 시작
-
-### 1. 패턴 그리기
-
-```bash
-cd interactive-cli
-python3 github_canvas.py
-# 패턴을 그리고 저장 (S 키)
-```
-
-### 2. Git 커밋 생성
-
-```bash
-python3 git_generator.py generate pattern.json 2024
-```
-
-### 3. GitHub에 푸시
-
-```bash
-git push -f origin main
-```
-
-### 4. 잔디밭 확인
-
-`https://github.com/YOUR_USERNAME`에서 커스텀 패턴을 확인하세요!
-
 ## 프로젝트 구조
 
 ```
@@ -114,9 +110,7 @@ git-log-hack/
 │   ├── github_canvas.py        # 터미널 기반 패턴 에디터
 │   ├── git_generator.py        # 패턴 → Git 커밋 변환기
 │   ├── patterns/               # 저장된 패턴 파일
-│   ├── README.md               # 상세 사용 가이드
-│   ├── DEVLOG.md               # 개발 노트
-│   └── TODO.md                 # 향후 개선사항
+│   └── README.md               # 상세 사용 가이드
 ├── README.md                   # 이 파일 (한국어)
 └── README_EN.md                # 영어 버전
 ```
@@ -147,6 +141,7 @@ git-log-hack/
 - **Star 날짜**: 조작 불가능하며 시도 시 약관 위반
 
 연구 문서:
+
 - `git-date-commands-research.md` - Git 날짜 조작 가능한 모든 명령어
 - `pr-creation-date-research.md` - PR 생성 날짜 조작 연구
 - `test-pr-experiment.md` - PR 날짜 조작 실험 결과
@@ -167,12 +162,14 @@ git-log-hack/
 ### 윤리적 고려사항
 
 이 프로젝트는 다음을 위한 것입니다:
+
 - ✅ 교육 목적
 - ✅ Git 내부 구조 이해
 - ✅ 자신의 프로필에 재미있는 패턴 만들기
 - ✅ 분산 시스템의 신뢰 모델 시연
 
 이 프로젝트는 다음을 위한 것이 아닙니다:
+
 - ❌ 취업을 위한 허위 경력 조작
 - ❌ 기여도 통계 오도
 - ❌ GitHub 서비스 약관 위반
@@ -180,15 +177,17 @@ git-log-hack/
 ## GitHub 잔디밭 작동 방식
 
 **기여도로 인정되는 것**:
+
 - ✅ 커밋 (Author Date 기준)
 - ✅ Pull Request 생성
 - ✅ Issue 생성
 - ✅ 코드 리뷰
 
 **인정되지 않는 것**:
+
 - ❌ PR 머지 날짜
 - ❌ 머지 커밋 (일반 커밋으로 표시됨)
-- ❌ Wiki 커밋 (별도 리포지토리)
+- ❌ Wiki 커밋 (날짜 조작은 가능하지만 잔디밭에 반영 안됨)
 - ❌ 포크 커밋 (포크 소유자가 아닌 경우)
 
 **사용되는 날짜**: Author Date (`GIT_AUTHOR_DATE`), Committer Date나 푸시 시각 아님
@@ -242,24 +241,8 @@ python3 git_generator.py preview pattern.json
 }
 ```
 
-## 기여하기
+## 연구 문서
 
-기여를 환영합니다! 계획된 기능은 [TODO.md](interactive-cli/TODO.md)를 참고하세요.
-
-**우선순위 기능**:
-- 패턴 라이브러리 브라우저
-- 되돌리기/다시하기 기능
-- 다년도 지원
-- 텍스트→패턴 변환기
-- 마우스 지원
-
-## 개발
-
-**기술 문서**:
-- [DEVLOG.md](interactive-cli/DEVLOG.md) - 개발 과정 및 기술적 결정사항
-- [TODO.md](interactive-cli/TODO.md) - 기능 로드맵 및 알려진 이슈
-
-**연구 문서**:
 - `git-date-commands-research.md` - Git 날짜 조작 종합 가이드
 - `PR-vs-COMMIT-FAQ.md` - PR이 커밋으로 표시되는 이유
 
@@ -273,6 +256,6 @@ python3 git_generator.py preview pattern.json
 
 ---
 
-**최종 업데이트**: 2025-12-31
+**최종 업데이트**: 2026-01-05
 
 **핵심 통찰**: GitHub 잔디밭은 Git의 분산 신뢰 모델을 기반으로 합니다 - 클라이언트가 날짜를 설정하고, 서버는 검증 없이 저장합니다. 이것은 버그가 아니라 기능입니다! 🎨

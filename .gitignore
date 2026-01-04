@@ -1,0 +1,32 @@
+# Development notes (private)
+TODO.md
+interactive-cli/TODO.md
+DEVLOG.md
+interactive-cli/DEVLOG.md
+
+# Pattern files
+interactive-cli/patterns/*.json
+!interactive-cli/patterns/.gitkeep
+
+# Commit files
+canvas_commits.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

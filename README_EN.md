@@ -12,6 +12,24 @@ This project demonstrates how to manipulate Git commit dates to draw custom patt
 
 ![Example Pattern](https://img.shields.io/badge/Pattern-Customizable-green)
 
+## Quick Start
+
+```bash
+# 1. Design your pattern (interactive editor)
+cd interactive-cli
+python3 github_canvas.py
+# → Arrow keys to move, Space to paint, S to save, Q to quit
+
+# 2. Generate Git commits
+python3 git_generator.py generate pattern.json 2024
+
+# 3. Push to GitHub
+cd ..
+git push -f origin main
+```
+
+> **Important**: `github_canvas.py` is for pattern design only, `git_generator.py` creates actual commits.
+
 ## How It Works
 
 GitHub's contribution graph is generated using the following mechanism:
@@ -36,6 +54,7 @@ The contribution graph displays commits based on **Author Date**, not commit cre
 ## Features
 
 ### 1. Basic Script
+
 Create simple patterns with `create_flower_commits.py`
 
 ```bash
@@ -43,6 +62,7 @@ python3 create_flower_commits.py
 ```
 
 ### 2. Interactive Canvas Editor
+
 Draw custom patterns with a terminal-based interactive editor
 
 ```bash
@@ -51,6 +71,7 @@ python3 github_canvas.py
 ```
 
 **Features**:
+
 - Real-time pattern preview
 - 5 intensity levels (0-4 commits per day)
 - Two display styles (shaded/block)
@@ -58,6 +79,7 @@ python3 github_canvas.py
 - Automatic Git commit generation
 
 **Controls**:
+
 - Arrow keys: Move cursor
 - Space: Toggle intensity (0→1→2→3→4→0)
 - 0-4: Set intensity directly
@@ -79,32 +101,6 @@ b2c4066 - devJZen, 1 year ago : Flower commit 49
 9af3713 - devJZen, 1 year ago : Flower commit 48
 ```
 
-## Quick Start
-
-### 1. Draw Your Pattern
-
-```bash
-cd interactive-cli
-python3 github_canvas.py
-# Draw your pattern and save (press S)
-```
-
-### 2. Generate Git Commits
-
-```bash
-python3 git_generator.py generate pattern.json 2024
-```
-
-### 3. Push to GitHub
-
-```bash
-git push -f origin main
-```
-
-### 4. View Your Contribution Graph
-
-Visit `https://github.com/YOUR_USERNAME` to see your custom pattern!
-
 ## Project Structure
 
 ```
@@ -114,9 +110,7 @@ git-log-hack/
 │   ├── github_canvas.py        # Terminal-based pattern editor
 │   ├── git_generator.py        # Pattern → Git commits converter
 │   ├── patterns/               # Saved pattern files
-│   ├── README.md               # Detailed usage guide
-│   ├── DEVLOG.md               # Development notes
-│   └── TODO.md                 # Future improvements
+│   └── README.md               # Detailed usage guide
 ├── README.md                   # This file (Korean)
 └── README_EN.md                # This file (English)
 ```
@@ -147,6 +141,7 @@ This project includes extensive research on Git date manipulation:
 - **Star Dates**: Cannot and should not be manipulated (ToS violation)
 
 See research documents:
+
 - `git-date-commands-research.md` - All Git commands supporting date manipulation
 - `pr-creation-date-research.md` - PR creation date manipulation research
 - `test-pr-experiment.md` - PR date manipulation experiment results
@@ -167,12 +162,14 @@ See research documents:
 ### Ethical Considerations
 
 This project is for:
+
 - ✅ Educational purposes
 - ✅ Understanding Git internals
 - ✅ Creating fun patterns on your own profile
 - ✅ Demonstrating distributed system trust models
 
 This project is NOT for:
+
 - ❌ Faking work history for employment
 - ❌ Misleading contribution statistics
 - ❌ Violating GitHub Terms of Service
@@ -180,15 +177,17 @@ This project is NOT for:
 ## How GitHub Contribution Graph Works
 
 **What Counts as Contributions**:
+
 - ✅ Commits (based on Author Date)
 - ✅ Pull Requests opened
 - ✅ Issues opened
 - ✅ Code reviews
 
 **What Doesn't Count**:
+
 - ❌ PR merge date
 - ❌ Merge commits (shown as regular commits)
-- ❌ Wiki commits (separate repository)
+- ❌ Wiki commits (date manipulation works, but not reflected in contribution graph)
 - ❌ Fork commits (unless you own the fork)
 
 **Date Used**: Author Date (`GIT_AUTHOR_DATE`), NOT Committer Date or push time
@@ -242,24 +241,8 @@ Patterns are stored in JSON format:
 }
 ```
 
-## Contributing
+## Research Documents
 
-Contributions are welcome! See [TODO.md](interactive-cli/TODO.md) for planned features.
-
-**Priority Features**:
-- Pattern library browser
-- Undo/Redo functionality
-- Multi-year support
-- Text-to-pattern converter
-- Mouse support
-
-## Development
-
-**Technical Documentation**:
-- [DEVLOG.md](interactive-cli/DEVLOG.md) - Development process and technical decisions
-- [TODO.md](interactive-cli/TODO.md) - Feature roadmap and known issues
-
-**Research Documents**:
 - `git-date-commands-research.md` - Comprehensive Git date manipulation guide
 - `PR-vs-COMMIT-FAQ.md` - Why PRs appear as commits
 
@@ -273,6 +256,6 @@ This project is for educational purposes. Use responsibly and ethically.
 
 ---
 
-**Last Updated**: 2025-12-31
+**Last Updated**: 2026-01-05
 
 **Key Insight**: GitHub contribution graphs are based on Git's distributed trust model - clients set dates, servers store them without validation. This is a feature, not a bug! 🎨

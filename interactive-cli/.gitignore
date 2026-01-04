@@ -1,0 +1,13 @@
+# 패턴 파일들 (사용자가 생성하는 파일이므로 git에서 제외)
+patterns/*.json
+
+# 하지만 폴더 자체는 유지
+!patterns/.gitkeep
+
+# 개발 노트 및 개인 메모 (선택적으로 제외, 필요시 주석 해제)
+# DEVLOG.md
+# TODO.md
+# NOTES.md
+
+# 커밋 생성 중 만들어지는 파일
+canvas_commits.txt
