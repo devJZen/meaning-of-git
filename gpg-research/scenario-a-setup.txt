@@ -1,0 +1,3 @@
+[Scenario A] No GPG at commit time
+This file was committed WITHOUT a GPG signature.
+Commit 1 of 3
