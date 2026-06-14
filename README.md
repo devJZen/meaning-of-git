@@ -2,6 +2,10 @@
 
 **한국어** | **[English](README_EN.md)**
 
+Claude와 함께 작성하였습니다.
+
+수정일: 2026년 6월 15일
+
 ---
 
 ## 개요
@@ -9,6 +13,16 @@
 GitHub 잔디밭(contribution graph)은 **Author Date**를 기준으로 그려지므로 과거와 미래의 기여도를 모두 통제할 수 있습니다.
 
 이 프로젝트는 Git 커밋 날짜를 조작하여 GitHub 잔디밭에 원하는 패턴을 그리는 방법을 보여줍니다.
+
+조작도 아닐뿐더러 분산형 시스템이기에 많은 사용자가 함께 작업하는 것에 의의를 뒀던 리누스 토르발즈의 철학이 담긴게 Git 이었습니다.
+
+형상 관리는 형상 관리지만 분산형 시스템 모델을 공부하기에 좋았던 프로젝트예요.
+
+[Linux man](https://linux.die.net/man) 이라는 멋진 사이트도 알게됐어요.
+
+트레이드 오프가 있음에도 Git 커밋 날짜를 수정할 수 있게 했던 것은 해시 변조로 확인할 수 있었습니다.
+
+메시지나 패킷을 송신할 때 해시를 확인하는 것과 같은 이유죠.
 
 ![Example Pattern](https://img.shields.io/badge/Pattern-Customizable-green)
 
@@ -142,7 +156,6 @@ git-log-hack/
 
 연구 문서:
 
-- `git-date-commands-research.md` - Git 날짜 조작 가능한 모든 명령어
 - `pr-creation-date-research.md` - PR 생성 날짜 조작 연구
 - `test-pr-experiment.md` - PR 날짜 조작 실험 결과
 - `wiki-experiment.md` - Wiki 날짜 조작 실험 결과
@@ -256,6 +269,6 @@ python3 git_generator.py preview pattern.json
 
 ---
 
-**최종 업데이트**: 2026-01-05
+**최종 업데이트**: 2026-06-15
 
-**핵심 통찰**: GitHub 잔디밭은 Git의 분산 신뢰 모델을 기반으로 합니다 - 클라이언트가 날짜를 설정하고, 서버는 검증 없이 저장합니다. 이것은 버그가 아니라 기능입니다! 🎨
+**결과**: GitHub 잔디밭은 Git의 분산 신뢰 모델을 기반으로 합니다 - 클라이언트가 날짜를 설정하고, 서버는 검증 없이 저장합니다. 최소한의 커밋 해시는 변조된 커밋인지 확인하는 용도입니다. Git은 원래 커밋의 '날짜'가 아닌 많은 개발자들이 '협력' 할 수 있는 분산형 시스템을 만드는 것이 목적이었습니다. 🎨
