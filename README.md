@@ -117,9 +117,10 @@ python3 github_canvas.py
 
 ## 예제
 
-연구가 완료된 현재의 `git log` (654개 → 19개로 정리 후):
+최종 정리 후 `git log` (654개 → 20개):
 
 ```
+5f1a218  2026-06-18  update: find meaning of git
 e65d8fb  2026-06-15  update: unsigned GPG commit
 962dbe0  2024-11-05  scenario-B: commit-3 (gpg+past, date=2024-Nov-05)
 374fc25  2027-03-01  scenario-B: commit-2 (gpg+future, date=2027-Mar-01)
@@ -137,7 +138,47 @@ a1d4ee7  2025-12-31  update: How it works README.md
 bb0ff4c  2025-12-31  first commit
 ```
 
-이전에는 `flower_commits.txt`만 건드리는 Flower commit 600여 개가 이 사이를 채우고 있었습니다.
+## 이력 정리 과정
+
+### 1단계 — Flower commit 제거
+
+`flower_commits.txt`만 건드리는 커밋 600여 개를 `git filter-repo`로 일괄 제거했습니다.
+파일을 이력에서 삭제하면 해당 파일만 수정하던 커밋들이 빈 커밋이 되어 자동으로 정리됩니다.
+
+```bash
+git filter-repo --force \
+  --invert-paths --path flower_commits.txt \
+  --prune-empty always
+```
+
+### 2단계 — 브랜치·stash 정리
+
+`git filter-repo`는 `main`을 재작성했지만, 다른 브랜치의 remote tracking ref가
+정리 전의 옛 히스토리(Flower commit 포함)를 여전히 참조하고 있었습니다.
+브랜치마다 심어진 커밋도 GitHub 기여 그래프에 반영되기 때문에 함께 제거해야 합니다.
+
+| 삭제 항목 | 이유 |
+|-----------|------|
+| `research/gpg-immutability` 로컬·원격 브랜치 | 연구 완료, main에 반영됨 |
+| `test-pr-date` 로컬·원격 브랜치 | PR 실험 완료, 불필요 |
+| stash | 재작성 전 커밋을 참조하는 오래된 항목 |
+
+```bash
+# stash 삭제
+git stash drop
+
+# 로컬 브랜치 삭제
+git branch -D research/gpg-immutability test-pr-date
+
+# remote tracking ref 삭제 (로컬)
+git branch -r -d origin/research/gpg-immutability origin/test-pr-date
+
+# 참조 없는 객체 정리
+git gc --prune=now --aggressive
+
+# GitHub 원격 브랜치 삭제
+git push origin --delete research/gpg-immutability test-pr-date
+```
 
 ## 프로젝트 구조
 
