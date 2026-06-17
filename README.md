@@ -4,9 +4,19 @@
 
 Claude와 함께 작성하였습니다.
 
-수정일: 2026년 6월 15일
+수정일: 2026년 6월 18일
 
 ---
+
+## 돌아보며
+
+이 프로젝트를 마무리하면서 한 가지 생각이 남았습니다.
+
+Git이 커밋 날짜를 클라이언트에 맡기고 서버가 검증하지 않는 것은 설계상의 트레이드오프입니다. 리누스 토르발즈가 Git을 만들 때 최우선으로 생각한 것은 날짜의 정확성이 아니라 **많은 개발자가 함께 협력할 수 있는 분산 시스템**이었습니다. 그 철학 덕분에 날짜 조작이 기술적으로 가능한 것이기도 합니다.
+
+연구를 진행하면서 이 '틈'을 탐색하는 과정 자체는 흥미로웠지만, 결국 Git의 히스토리는 내가 실제로 무엇을 했는지를 기록하는 도구라는 생각에 이르렀습니다. 함께 일하는 사람들과 이력을 공유할 때 그 이력이 의미 있으려면, 날짜보다는 커밋 하나하나가 실제 작업을 담고 있어야 한다는 것을 느꼈습니다.
+
+그래서 연구 목적으로 만들었던 600여 개의 Flower commit을 정리하고, 연구 내용을 담은 커밋만 남겼습니다. 형상 관리는 결국 협업을 위한 도구입니다.
 
 ## 개요
 
@@ -107,13 +117,27 @@ python3 github_canvas.py
 
 ## 예제
 
+연구가 완료된 현재의 `git log` (654개 → 19개로 정리 후):
+
 ```
-55fd317 - devJZen, 1년 전 : Flower commit 52
-7e81ed7 - devJZen, 12달 전 : Flower commit 51
-341ddee - devJZen, 1년 전 : Flower commit 50
-b2c4066 - devJZen, 1년 전 : Flower commit 49
-9af3713 - devJZen, 1년 전 : Flower commit 48
+e65d8fb  2026-06-15  update: unsigned GPG commit
+962dbe0  2024-11-05  scenario-B: commit-3 (gpg+past, date=2024-Nov-05)
+374fc25  2027-03-01  scenario-B: commit-2 (gpg+future, date=2027-Mar-01)
+dc2c2f0  2025-06-15  scenario-B: commit-1 (gpg+backdated, date=2025-Jun-15)
+2be6e98  2026-03-21  scenario-A: commit-3 (no gpg, date=Mar-21)
+e2f3c53  2026-02-14  scenario-A: commit-2 (no gpg, date=Feb-14)
+20e7ed7  2026-01-10  scenario-A: commit-1 (no gpg, date=Jan-10)
+2d96dbb  2026-06-15  update: README.md
+6c9531d  2026-01-05  feat: async project - git_generator - github_canvas - README
+f0ecd3e  2026-01-05  docs: explain to project
+4d124d1  2026-01-05  docs: explain to project
+c0beb68  2026-01-02  test: Wiki Date Manipulation
+f4ecc3f  2025-12-31  Merge pull request #1 from devJZen/test-pr-date
+a1d4ee7  2025-12-31  update: How it works README.md
+bb0ff4c  2025-12-31  first commit
 ```
+
+이전에는 `flower_commits.txt`만 건드리는 Flower commit 600여 개가 이 사이를 채우고 있었습니다.
 
 ## 프로젝트 구조
 
@@ -269,6 +293,4 @@ python3 git_generator.py preview pattern.json
 
 ---
 
-**최종 업데이트**: 2026-06-15
-
-**결과**: GitHub 잔디밭은 Git의 분산 신뢰 모델을 기반으로 합니다 - 클라이언트가 날짜를 설정하고, 서버는 검증 없이 저장합니다. 최소한의 커밋 해시는 변조된 커밋인지 확인하는 용도입니다. Git은 원래 커밋의 '날짜'가 아닌 많은 개발자들이 '협력' 할 수 있는 분산형 시스템을 만드는 것이 목적이었습니다. 🎨
+**최종 업데이트**: 2026-06-18

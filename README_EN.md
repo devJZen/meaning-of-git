@@ -4,6 +4,16 @@
 
 ---
 
+## Reflection
+
+One thought stayed with me after wrapping up this project.
+
+Git's decision to leave commit timestamps in the client's hands — with no server-side verification — is an intentional trade-off. When Linus Torvalds designed Git, the priority was not timestamp accuracy but **a distributed system where many developers can collaborate freely**. That design philosophy is precisely what makes date manipulation technically possible.
+
+Exploring that gap was genuinely interesting as a research exercise. But it led me to a simpler realization: a git history is a record of what you actually did. For that record to be meaningful to the people you work with, what matters isn't the date — it's whether each commit represents real work.
+
+That's why I cleaned up the 600+ Flower commits created purely for the experiment and kept only the commits that carry the research itself. Version control is, in the end, a collaboration tool.
+
 ## Overview
 
 GitHub's contribution graph (green squares) is based on **Author Date**, which means you can control both past and future contributions.
@@ -93,13 +103,27 @@ See [interactive-cli/README.md](interactive-cli/README.md) for detailed usage.
 
 ## Example
 
+Current `git log` after cleanup (654 commits → 19):
+
 ```
-55fd317 - devJZen, 1 year ago : Flower commit 52
-7e81ed7 - devJZen, 12 months ago : Flower commit 51
-341ddee - devJZen, 1 year ago : Flower commit 50
-b2c4066 - devJZen, 1 year ago : Flower commit 49
-9af3713 - devJZen, 1 year ago : Flower commit 48
+e65d8fb  2026-06-15  update: unsigned GPG commit
+962dbe0  2024-11-05  scenario-B: commit-3 (gpg+past, date=2024-Nov-05)
+374fc25  2027-03-01  scenario-B: commit-2 (gpg+future, date=2027-Mar-01)
+dc2c2f0  2025-06-15  scenario-B: commit-1 (gpg+backdated, date=2025-Jun-15)
+2be6e98  2026-03-21  scenario-A: commit-3 (no gpg, date=Mar-21)
+e2f3c53  2026-02-14  scenario-A: commit-2 (no gpg, date=Feb-14)
+20e7ed7  2026-01-10  scenario-A: commit-1 (no gpg, date=Jan-10)
+2d96dbb  2026-06-15  update: README.md
+6c9531d  2026-01-05  feat: async project - git_generator - github_canvas - README
+f0ecd3e  2026-01-05  docs: explain to project
+4d124d1  2026-01-05  docs: explain to project
+c0beb68  2026-01-02  test: Wiki Date Manipulation
+f4ecc3f  2025-12-31  Merge pull request #1 from devJZen/test-pr-date
+a1d4ee7  2025-12-31  update: How it works README.md
+bb0ff4c  2025-12-31  first commit
 ```
+
+Previously, 600+ Flower commits (all touching only `flower_commits.txt`) filled this history.
 
 ## Project Structure
 
@@ -256,6 +280,4 @@ This project is for educational purposes. Use responsibly and ethically.
 
 ---
 
-**Last Updated**: 2026-01-05
-
-**Key Insight**: GitHub contribution graphs are based on Git's distributed trust model - clients set dates, servers store them without validation. This is a feature, not a bug! 🎨
+**Last Updated**: 2026-06-18
