@@ -186,6 +186,38 @@ git gc --prune=now --aggressive
 git push origin --delete research/gpg-immutability test-pr-date
 ```
 
+### 3단계 — reflog 만료 후 완전 정리 (누락 시 기여 그래프 잔존)
+
+`git gc`는 reflog에 남아있는 항목이 있으면 해당 객체를 "아직 참조됨"으로 보고 삭제하지 않습니다.
+`git filter-repo`나 브랜치 삭제 후에도 reflog를 먼저 비우지 않으면 옛 커밋 객체가 남아
+GitHub 기여 그래프에 계속 표시될 수 있습니다.
+
+```bash
+# reflog 항목 전부 즉시 만료 → gc가 완전히 수거할 수 있게 됨
+git reflog expire --expire=now --all
+
+# 참조 없는 객체 완전 제거
+git gc --prune=now --aggressive
+
+# GitHub에 현재 상태가 최종본임을 알림
+git push -f origin main
+```
+
+### GitHub 기여 그래프 reindex
+
+force push 이후에도 기여 그래프가 즉시 갱신되지 않을 수 있습니다.
+
+GitHub는 기여 그래프를 **저장소의 현재 상태**가 아닌 **서버가 수신한 push 이벤트 로그**를 기반으로 집계합니다.
+이 이벤트 스토어는 force push로 덮어쓸 수 없으며, **UTC 기준 자정 배치**로 재계산됩니다.
+
+| 상황 | 결과 |
+|------|------|
+| 로컬 `git gc`만 실행 | GitHub에 영향 없음 |
+| `git push -f` | GitHub가 새 ref 수신, 다음 배치에서 재계산 |
+| UTC 자정 경과 | 기여 그래프 갱신 반영 |
+
+> **비대칭성**: 백데이트 커밋 추가는 즉시 반영되지만, 제거는 배치 처리를 기다려야 합니다.
+
 ## 프로젝트 구조
 
 ```
